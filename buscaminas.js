@@ -1,58 +1,89 @@
-// preguntar al usuario por la cantidad de filas del tablero
-let filas = prompt("Introduce la cantidad de filas")
-// preguntar al usuario por la cantidad de columnas del tablero
-let columnas = prompt("Introduce la cantidad de columnas")
-// preguntar al usuario por la cantidad de minas del tablero
-let minas = prompt("Introduce la cantidad de minas")
-//Array para guardar las filas y columnas del tablero
-let tablero = [];
+function recibirDatos() {
+    while (true) {
 
+        finalizar = false;
+        filasOk = false;
+        columnasOk = false;
+        
+    }
+}
+
+// funcion encargada de resolver el tablero, colocando en
+// cada casilla el valor correspondiente a la cantidad de minas
+// adyacentes
 function resolverTablero(tablero) {
+    // por cada fila y por cada columna,
+    // es decir por cada casilla
     for (let i = 0; i < tablero.length; i++) {
         for (let j = 0; j < tablero[0].length; j++) {
-
+            // si la casilla no tiene una mina
+            if (tablero[i][j] != -1) {
+                // invoco a un metodo que me calcula el valor de la casilla
+                calcularCasilla(i, j, tablero);
+            }
         }
     }
 }
 
-// funcion que comprueba que una posicion del tablero sea valida, 
+// calcula el valor de una casilla dada
+function calcularCasilla(fila, columna, tablero) {
+    // define las direcciones correspondientes a las 8
+    // posiciones adyacentes
+    let direcciones = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, -1],
+        [0, 1],
+        [1, -1],
+        [1, 0],
+        [1, 1],
+    ];
+
+    // recorre cada direccion adyacente
+    for (let i = 0; i < direcciones.length; i++) {
+        let nuevaFila = direcciones[i][0];
+        let nuevaColumna = direcciones[i][1];
+
+        // si la casilla adyacente es una casilla valida y tiene una mina
+        if (
+            validarCasilla(nuevaFila, nuevaColumna, tablero) &&
+            tablero[nuevaFila][nuevaColumna] == -1
+        ) {
+            // incremento en 1 el valor de la casilla actual
+            tablero[fila][columna]++;
+        }
+    }
+}
+
+// funcion que comprueba que una posicion del tablero sea valida,
 //para no comprobar casillas que no existan por exceder los limites
 function validarCasilla(fila, columna, tablero) {
-    return (fila > -1 && fila < tablero.length && columna > -1 && columna < tablero[0].length)
+    // devuelve verdadero si la fila y la columna existen en el tablero
+    // son validas las posiciones desde 0 hasta el length-1
+    return (
+        fila > -1 &&
+        fila < tablero.length &&
+        columna > -1 &&
+        columna < tablero[0].length
+    );
 }
-
-
-
-function  crearTablero (filas,columnas) {
-    for (let i = 0; i < filas; i++) {
-        tablero[i] = [];
-        for (let j = 0; j < columnas; j++) {
-            tablero[i][j] = 0;
-        }
-    }
-}
-
-let minasColocadas = 0;
 
 function crearMinas(filas, columnas, minas) {
-    while (minasColocadas < minas) {
-        let columnasMina = Math.floor((Math.random() * columnas));
-        let filaMina = Math.floor(Math.random() * filas);
-
-        if (tablero[filaMina][columnasMina] == -1){
-            continue;
-        }else{
-            tablero[filaMina][columnasMina] == -1;
-            minasColocadas--;
+    if ((filas, columnas, minas <= 0)) {
+        alert("Las filas, columnas o minas no pueden ser menor que 0");
+    } else if ((filas, columnas > 9)) {
+        alert("Las filas o columnas no pueden ser mayores de 9");
+    } else if (minas > ((filas * columnas) / 2, 5)) {
+        alert(
+            "Las minas no pueden ser más que la proporcion 1 mina por 2,5 huecos libres"
+        );
+    } else {
+        for (let index = 0; index < minas; index++) {
+            let columnasMina = Math.floor(Math.random() * columnas);
+            let filaMina = Math.floor(Math.random() * filas);
         }
     }
 }
 
-function mostrarTablero(tablero){
-    for (let i = 0; i < tablero.length; i++) {
-        for (let j = 0; j < tablero[i].length; j++) {
-            document.write(tablero[i][j] + " ");
-        }
-        document.write("<br>");
-    }
-}
+console.log("3" < 2);
