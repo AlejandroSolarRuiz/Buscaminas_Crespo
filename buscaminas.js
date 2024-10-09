@@ -53,6 +53,6 @@ function mostrarTablero(tablero){
         for (let j = 0; j < tablero[i].length; j++) {
             document.write(tablero[i][j] + " ");
         }
-        document.write("<br>");
+        document.write("<br>")
     }
 }
