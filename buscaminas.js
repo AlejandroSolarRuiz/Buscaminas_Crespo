@@ -1,9 +1,44 @@
-function recibirDatos() {
+let filas;
+let columnas;
+let minas;
+let tablero = [];
+
+function solicitarNumero(mensaje, maximo) {
     while (true) {
-        finalizar = false;
-        filasOk = false;
-        columnasOk = false;
+        let input = prompt(mensaje);
+        if (input == null) {
+            alert("Programa Finalizado");
+            return null;
+        }
+        const numero = parseInt(input);
+        if (!isNaN(numero) && numero > 0 && numero < maximo) {
+            return numero;
+        }
+        alert(
+            `El valor introducido es incorrecto, debe estar entre 1 y ${maximo}, Intentelo de nuevo`
+        );
     }
+}
+
+function solicitarDatos() {
+    filas = solicitarNumero(
+        "Introduce el numero de filas (mínimo 1 y máximo 9)",
+        9
+    );
+
+    columnas = solicitarNumero(
+        "Introduce el numero de columnas (mínimo 1 y máximo 9)",
+        9
+    );
+
+    let maxMinas = Math.floor((filas * columnas) / 2.5);
+    minas = solicitarNumero(
+        `Introduce el numero de minas (mínimo 1 y máximo ${Math.min(
+            maxMinas,
+            12
+        )})`,
+        Math.min(maxMinas, 12)
+    );
 }
 
 // funcion encargada de resolver el tablero, colocando en
@@ -78,10 +113,11 @@ function crearTablero(filas, columnas) {
 
 let minasColocadas = 0;
 
-function crearMinas(filas, columnas, minas) {
+function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
-        let columnasMina = Math.floor(Math.random() * columnas);
-        let filaMina = Math.floor(Math.random() * filas);
+        console.log(tablero[0]);
+        let columnasMina = Math.floor(Math.random() * tablero[0].length);
+        let filaMina = Math.floor(Math.random() * tablero.length);
 
         if (tablero[filaMina][columnasMina] == -1) {
             continue;
@@ -100,3 +136,10 @@ function mostrarTablero(tablero) {
         document.write("<br>");
     }
 }
+
+solicitarDatos();
+tablero = crearTablero(filas, columnas);
+crearMinas(tablero, minas);
+mostrarTablero(tablero);
+resolverTablero(tablero);
+mostrarTablero(tablero);
