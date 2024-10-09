@@ -23,6 +23,7 @@ function crearMinas(filas,columnas,minas){
         alert("Las minas no pueden ser más que la proporcion 1 mina por 2,5 huecos libres")
     }else{
         for (let index = 0; index < minas; index++) {
-            
+           let columnasMina = Math.floor((Math.random()*columnas));
+           let filaMina = Math.floor(Math.random()*filas);
     }
 }
