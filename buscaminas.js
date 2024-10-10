@@ -78,16 +78,16 @@ function crearTablero(filas, columnas) {
 
 let minasColocadas = 0;
 
-function crearMinas(filas, columnas, minas) {
+function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
-        let columnasMina = Math.floor(Math.random() * columnas);
-        let filaMina = Math.floor(Math.random() * filas);
+        let columnasMina = Math.floor(Math.random() * tablero[0].length);
+        let filaMina = Math.floor(Math.random() * tablero.length);
 
         if (tablero[filaMina][columnasMina] == -1) {
             continue;
         } else {
             tablero[filaMina][columnasMina] == -1;
-            minasColocadas--;
+            minasColocadas++;
         }
     }
 }
