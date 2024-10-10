@@ -156,6 +156,13 @@ function mostrarTablero(tablero) {
     document.write("<br>");
 }
 
+window.onload = function() {
+    let audio = document.getElementById("musicaFondo");
+    audio.play().catch(error => {
+        console.log("Autoplay bloqueado. El usuario debe interactuar con la página.");
+    });
+};
+
 solicitarDatos();
 crearTablero(filas, columnas);
 crearMinas(tablero, minas);
