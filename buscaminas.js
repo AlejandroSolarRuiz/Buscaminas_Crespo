@@ -116,6 +116,7 @@ function validarCasilla(fila, columna, tablero) {
     );
 }
 
+// funcion que crea el array del tablero definiendo 0 a las posiciones
 function crearTablero(filas, columnas) {
     for (let i = 0; i < filas; i++) {
         tablero[i] = [];
@@ -127,17 +128,10 @@ function crearTablero(filas, columnas) {
 
 let minasColocadas = 0;
 
+// funcion que crea la posicion de las minas
+// se comprueba si en la casilla existe una mina y si no se escribe -1 respresentando a la mina
 function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
-<<<<<<< HEAD
-        let columnasMina = Math.floor(Math.random() * tablero[0].length);
-        let filaMina = Math.floor(Math.random() * tablero.length);
-
-        if (tablero[filaMina][columnasMina] == -1) {
-            continue;
-        } else {
-            tablero[filaMina][columnasMina] == -1;
-=======
         let filaMina = Math.floor(Math.random() * filas);
         let columnasMina = Math.floor(Math.random() * columnas);
         console.log(filaMina,columnasMina);
@@ -146,12 +140,12 @@ function crearMinas(tablero, minas) {
             continue;
         } else {
             tablero[filaMina][columnasMina] = -1;
->>>>>>> db0908b3a996afecdfe97bae3629d4764e5fa209
             minasColocadas++;
         }
     }
 }
 
+// funcion que imprime el buscaminas en el html
 function mostrarTablero(tablero) {
     for (let i = 0; i < tablero.length; i++) {
         for (let j = 0; j < tablero[i].length; j++) {
