@@ -1,17 +1,31 @@
+// datos con los que trabaja el programa
+
+// numero de filas
 let filas;
+// numero de columnas
 let columnas;
+// numero de minas
 let minas;
+// tablero de juego
 let tablero = [];
 
+// esta funcion se encarga de realizar el pedido al usuario de un unico dato
+// "mensaje" indica el texto con el que se pide al usuario informacion
+// "maximo" representa el valor máximo que el usuario puede indicar para el dato pedido
 function solicitarNumero(mensaje, maximo) {
+    // mientras el dato introducido sea erroneo
     while (true) {
+        // pido al usuario el mensaje
         let input = prompt(mensaje);
+
+        // si el usuario pulsa cancelar se indica que el programa finalizo
+        // y se retorna null para que SolicitarDatos se detenga
         if (input == null) {
             alert("Programa Finalizado");
             return null;
         }
         const numero = parseInt(input);
-        if (!isNaN(numero) && numero > 0 && numero < maximo) {
+        if (!isNaN(numero) && numero > 0 && numero <= maximo) {
             return numero;
         }
         alert(
@@ -20,26 +34,26 @@ function solicitarNumero(mensaje, maximo) {
     }
 }
 
+// Función que solicita los datos necesarios para configurar el juego
 function solicitarDatos() {
-    filas = solicitarNumero(
-        "Introduce el numero de filas (mínimo 1 y máximo 9)",
-        9
-    );
+    // Solicitar filas y columnas
+    filas = solicitarNumero("Introduce el número de filas (mínimo 1 y máximo 9):", 9);
+    // Si el usuario canceló, salimos de la función
+    if (filas === null) return;
 
-    columnas = solicitarNumero(
-        "Introduce el numero de columnas (mínimo 1 y máximo 9)",
-        9
-    );
+    columnas = solicitarNumero("Introduce el número de columnas (mínimo 1 y máximo 9):", 9);
+    // Si el usuario canceló, salimos de la función
+    if (columnas === null) return;
 
+    // Calcular el número máximo de minas permitido
     let maxMinas = Math.floor((filas * columnas) / 2.5);
-    minas = solicitarNumero(
-        `Introduce el numero de minas (mínimo 1 y máximo ${Math.min(
-            maxMinas,
-            12
-        )})`,
-        Math.min(maxMinas, 12)
-    );
+
+    // Solicitar el número de minas, asegurando que sea al menos 1
+    minas = solicitarNumero(`Introduce el número de minas (mínimo 1 y máximo ${Math.min(maxMinas, 12)}):`, Math.min(maxMinas, 12));
+    // Si el usuario canceló, salimos de la función
+    if (minas === null) return;
 }
+
 
 // funcion encargada de resolver el tablero, colocando en
 // cada casilla el valor correspondiente a la cantidad de minas
@@ -75,13 +89,13 @@ function calcularCasilla(fila, columna, tablero) {
 
     // recorre cada direccion adyacente
     for (let i = 0; i < direcciones.length; i++) {
-        let nuevaFila = direcciones[i][0];
-        let nuevaColumna = direcciones[i][1];
+        let nuevaFila = fila + direcciones[i][0];
+        let nuevaColumna = columna + direcciones[i][1];
 
         // si la casilla adyacente es una casilla valida y tiene una mina
         if (
             validarCasilla(nuevaFila, nuevaColumna, tablero) &&
-            tablero[nuevaFila][nuevaColumna] == -1
+            tablero[nuevaFila][nuevaColumna] === -1
         ) {
             // incremento en 1 el valor de la casilla actual
             tablero[fila][columna]++;
@@ -115,15 +129,15 @@ let minasColocadas = 0;
 
 function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
-        console.log(tablero[0]);
-        let columnasMina = Math.floor(Math.random() * tablero[0].length);
-        let filaMina = Math.floor(Math.random() * tablero.length);
-
-        if (tablero[filaMina][columnasMina] == -1) {
+        let filaMina = Math.floor(Math.random() * filas);
+        let columnasMina = Math.floor(Math.random() * columnas);
+        console.log(filaMina,columnasMina);
+        
+        if (tablero[filaMina][columnasMina] === -1) {
             continue;
         } else {
-            tablero[filaMina][columnasMina] == -1;
-            minasColocadas--;
+            tablero[filaMina][columnasMina] = -1;
+            minasColocadas++;
         }
     }
 }
@@ -131,14 +145,15 @@ function crearMinas(tablero, minas) {
 function mostrarTablero(tablero) {
     for (let i = 0; i < tablero.length; i++) {
         for (let j = 0; j < tablero[i].length; j++) {
-            document.write(tablero[i][j] + " ");
+           document.write(tablero[i][j] + " ");
         }
         document.write("<br>");
     }
+    document.write("<br>");
 }
 
 solicitarDatos();
-tablero = crearTablero(filas, columnas);
+crearTablero(filas, columnas);
 crearMinas(tablero, minas);
 mostrarTablero(tablero);
 resolverTablero(tablero);
