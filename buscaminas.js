@@ -146,6 +146,9 @@ function crearMinas(tablero, minas) {
     }
 }
 
+// esta funcion se encarga de mostrar en una tabla los elementos del 
+// tablero y comprobar si son -1 (bomba) o el valor en ese momento, ademas de 
+// poder asignar un color posteriormente a los números
 function mostrarTablero(tablero, titulo) {
     const container = document.getElementById('tablero-container');
     const heading = document.createElement('h2');
@@ -166,7 +169,7 @@ function mostrarTablero(tablero, titulo) {
                 celda.textContent = valor; 
 
                 
-                if (valor >= 1 && valor <= 4) {
+                if (valor >= 0 && valor <= 8) {
                     celda.classList.add(`num-${valor}`);
                 }
             }
@@ -178,6 +181,7 @@ function mostrarTablero(tablero, titulo) {
     container.appendChild(heading);
     container.appendChild(tabla);
 }
+
 
 
 // Después de definir tu tablero:
