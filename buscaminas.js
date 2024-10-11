@@ -52,6 +52,7 @@ function solicitarDatos() {
     minas = solicitarNumero(`Introduce el número de minas (mínimo 1 y máximo ${Math.min(maxMinas, 12)}):`, Math.min(maxMinas, 12));
     // Si el usuario canceló, salimos de la función
     if (minas === null) return;
+
 }
 
 
@@ -145,27 +146,53 @@ function crearMinas(tablero, minas) {
     }
 }
 
-// funcion que imprime el buscaminas en el html
-function mostrarTablero(tablero) {
+function mostrarTablero(tablero, titulo) {
+    const container = document.getElementById('tablero-container');
+    const heading = document.createElement('h2');
+    heading.textContent = titulo;
+
+    const tabla = document.createElement('table');
+
     for (let i = 0; i < tablero.length; i++) {
+        const fila = document.createElement('tr');
         for (let j = 0; j < tablero[i].length; j++) {
-           document.write(tablero[i][j] + " ");
+            const celda = document.createElement('td');
+            const valor = tablero[i][j];
+            
+            // Mostrar solo minas o números
+            if (valor === -1) {
+                celda.textContent = '💣'; 
+            } else {
+                celda.textContent = valor; 
+
+                
+                if (valor >= 1 && valor <= 4) {
+                    celda.classList.add(`num-${valor}`);
+                }
+            }
+            fila.appendChild(celda);
         }
-        document.write("<br>");
+        tabla.appendChild(fila);
     }
-    document.write("<br>");
+
+    container.appendChild(heading);
+    container.appendChild(tabla);
 }
 
-window.onload = function() {
-    let audio = document.getElementById("musicaFondo");
-    audio.play().catch(error => {
-        console.log("Autoplay bloqueado. El usuario debe interactuar con la página.");
-    });
-};
 
+// Después de definir tu tablero:
 solicitarDatos();
 crearTablero(filas, columnas);
 crearMinas(tablero, minas);
-mostrarTablero(tablero);
+
+// Mostrar el tablero con solo minas
+mostrarTablero(tablero, "Tablero inicial: minas");
+
+// Resolver el tablero
 resolverTablero(tablero);
-mostrarTablero(tablero);
+
+// Mostrar el tablero resuelto con minas y números
+mostrarTablero(tablero, "Tablero resuelto: minas y números");
+
+
+

@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscaminas (AlejandroSolar y DavidKovacs)</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        .num-1 {
+            color: blue;
+            /* Cambia el color para el 1 */
+        }
+
+        .num-2 {
+            color: green;
+            /* Cambia el color para el 2 */
+        }
+
+        .num-3 {
+            color: orange;
+            /* Cambia el color para el 3 */
+        }
+
+        .num-4 {
+            color: red;
+            /* Cambia el color para el 4 */
+        }
+    </style>
 </head>
+
 <body>
-    <audio id="musicaFondo" loop>
-        <source src="MusicaEpica.mp3" type="audio/mpeg">
-        Tu navegador no soporta la etiqueta de audio.
-    </audio>
+    <div id="tablero-container"></div>
 </body>
-<script  type="text/javascript" src="buscaminas.js"></script>
+<script type="text/javascript" src="buscaminas.js"></script>
+
 </html>
