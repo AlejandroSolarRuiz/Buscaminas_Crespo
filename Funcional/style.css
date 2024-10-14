@@ -1,0 +1,82 @@
+/* Styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+td {
+    background-color: rgb(135, 133, 133);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+.revelada{
+    background-color: aliceblue;
+}
+
+.tablero {
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    margin: 20px;
+}
+
+.num-0 {
+    color: transparent;
+}
+
+.num-1 {
+    color: blue;
+    /* Cambia el color para el 1 */
+}
+
+.num-2 {
+    color: green;
+    /* Cambia el color para el 2 */
+}
+
+.num-3 {
+    color: rgb(249, 43, 21);
+    /* Cambia el color para el 3 */
+}
+
+.num-4 {
+    color: darkblue;
+    /* Cambia el color para el 4 */
+}
+
+.num-5 {
+    color: brown;
+}
+
+.num-6 {
+    color: rgb(0, 121, 129);
+}
+
+.num-7 {
+    color: purple;
+}
+
+.num-8 {
+    color: rgb(125, 122, 124);
+}
+
+.mina {
+    /* Color for mines */
+    background-color: #ff3333;
+}

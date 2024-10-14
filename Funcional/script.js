@@ -1,6 +1,9 @@
 const numFilas = 8;
 const numColumnas = 8;
 const numMinas = 10;
+let juegoTerminado = false;
+let celdasReveladas = 0;
+let banderas = 10;
 
 // define las direcciones correspondientes a las 8
 // posiciones adyacentes
@@ -19,8 +22,8 @@ const tableroJuego = document.getElementById("tablero");
 let tablero = [];
 
 // crea el tablero
-function crearTablero(filas, columnas) {
-    const tablero = [];
+function crearTablero(filas, columnas, minas) {
+    tablero = [];
     for (let i = 0; i < filas; i++) {
         const fila = [];
         for (let j = 0; j < columnas; j++) {
@@ -29,9 +32,12 @@ function crearTablero(filas, columnas) {
                 revelada: false,
                 contador: 0,
             };
-            tablero[i][j] = casilla;
+            fila.push(casilla);
         }
+        tablero.push(fila);
     }
+    crearMinas(tablero, minas);
+    resolverTablero();
 }
 
 // funcion que crea la posicion de las minas
@@ -39,8 +45,8 @@ function crearTablero(filas, columnas) {
 function crearMinas(tablero, minas) {
     let minasColocadas = 0;
     while (minasColocadas < minas) {
-        let filaMina = Math.floor(Math.random() * filas);
-        let columnaMina = Math.floor(Math.random() * columnas);
+        let filaMina = Math.floor(Math.random() * numFilas);
+        let columnaMina = Math.floor(Math.random() * numColumnas);
 
         if (!tablero[filaMina][columnaMina].esMina) {
             tablero[filaMina][columnaMina].esMina = true;
@@ -49,22 +55,22 @@ function crearMinas(tablero, minas) {
     }
 }
 
-// // funcion encargada de resolver el tablero, colocando en
-// // cada casilla el valor correspondiente a la cantidad de minas
-// // adyacentes
-// function resolverTablero(tablero) {
-//     // por cada fila y por cada columna,
-//     // es decir por cada casilla
-//     for (let i = 0; i < tablero.length; i++) {
-//         for (let j = 0; j < tablero[0].length; j++) {
-//             // si la casilla no tiene una mina
-//             if (tablero[i][j] != -1) {
-//                 // invoco a un metodo que me calcula el valor de la casilla
-//                 calcularCasilla(i, j, tablero);
-//             }
-//         }
-//     }
-// }
+// funcion encargada de resolver el tablero, colocando en
+// cada casilla el valor correspondiente a la cantidad de minas
+// adyacentes
+function resolverTablero() {
+    // por cada fila y por cada columna,
+    // es decir por cada casilla
+    for (let i = 0; i < numFilas; i++) {
+        for (let j = 0; j < numColumnas; j++) {
+            // si la casilla no tiene una mina
+            if (!tablero[i][j].esMina) {
+                // invoco a un metodo que me calcula el valor de la casilla
+                calcularCasilla(i, j);
+            }
+        }
+    }
+}
 
 // calcula el valor de una casilla dada
 function calcularCasilla(fila, columna) {
@@ -98,20 +104,87 @@ function validarCasilla(fila, columna) {
 }
 
 function revelarCasilla(fila, columna) {
-    if (!validarCasilla(fila, columna) || tablero[fila][columna].revelada) {
+    if (
+        !validarCasilla(fila, columna) ||
+        tablero[fila][columna].revelada ||
+        juegoTerminado
+    ) {
         return;
     }
 
     tablero[fila][columna].revelada = true;
-    
+    celdasReveladas++;
+
     if (tablero[fila][columna].esMina) {
         gameOver();
     } else if (tablero[fila][columna].contador === 0) {
-        calcularCasilla(fila,columna);
-        revelarCasilla(fila, columna);
+        for (let i = 0; i < direcciones.length; i++) {
+            revelarCasilla(
+                fila + direcciones[i][0],
+                columna + direcciones[i][1]
+            );
+        }
+    }
+    actualizarTablero("BUSCAMOROS 3");
+    comprobarVictoria();
+}
+
+function actualizarTablero(titulo) {
+    tableroJuego.innerHTML = "";
+    const tabla = document.createElement("table");
+    const heading = document.createElement("h2");
+    heading.textContent = titulo;
+
+    for (let i = 0; i < numFilas; i++) {
+        const fila = document.createElement("tr");
+        for (let j = 0; j < numColumnas; j++) {
+            const celda = document.createElement("td");
+            celda.className = "celda";
+
+            // Mostrar solo minas o números
+            if (tablero[i][j].revelada) {
+                celda.classList.add("revelada");
+
+                if (tablero[i][j].esMina) {
+                    celda.classList.add("mina");
+                    celda.textContent = "💣";
+                } else if (tablero[i][j].contador > 0) {
+                    celda.classList.add(`num-${tablero[i][j].contador}`);
+                    celda.textContent = tablero[i][j].contador;
+                }
+            }
+            if (!juegoTerminado) {
+                celda.addEventListener("click", () => revelarCasilla(i, j));
+                celda.addEventListener("contextmenu", (event) => {
+                    event.preventDefault();
+                    if (!tablero[i][j].revelada && banderas > 0) {
+                        celda.textContent = "🚩";
+                        
+                        banderas--;
+                    }
+                })
+            }
+            fila.appendChild(celda);
+        }
+        tabla.appendChild(fila);
+    }
+    tableroJuego.appendChild(heading);
+    tableroJuego.appendChild(tabla);
+}
+function gameOver() {
+    alert("GAME OVER!");
+    juegoTerminado = true;
+    tableroJuego.innerHTML = "";
+}
+
+function comprobarVictoria() {
+    let celdasSinMinas = numColumnas * numFilas - numMinas;
+    if (celdasSinMinas === celdasReveladas) {
+        alert("Felicidades!, has ganado");
+        tableroJuego.innerHTML = "";
     }
 }
 
-function gameOver() {
-    //TODO
-}
+crearTablero(numFilas, numColumnas, numMinas);
+
+actualizarTablero("BUSCAMOROS 3");
