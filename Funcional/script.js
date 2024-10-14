@@ -49,22 +49,22 @@ function crearMinas(tablero, minas) {
     }
 }
 
-// funcion encargada de resolver el tablero, colocando en
-// cada casilla el valor correspondiente a la cantidad de minas
-// adyacentes
-function resolverTablero(tablero) {
-    // por cada fila y por cada columna,
-    // es decir por cada casilla
-    for (let i = 0; i < tablero.length; i++) {
-        for (let j = 0; j < tablero[0].length; j++) {
-            // si la casilla no tiene una mina
-            if (tablero[i][j] != -1) {
-                // invoco a un metodo que me calcula el valor de la casilla
-                calcularCasilla(i, j, tablero);
-            }
-        }
-    }
-}
+// // funcion encargada de resolver el tablero, colocando en
+// // cada casilla el valor correspondiente a la cantidad de minas
+// // adyacentes
+// function resolverTablero(tablero) {
+//     // por cada fila y por cada columna,
+//     // es decir por cada casilla
+//     for (let i = 0; i < tablero.length; i++) {
+//         for (let j = 0; j < tablero[0].length; j++) {
+//             // si la casilla no tiene una mina
+//             if (tablero[i][j] != -1) {
+//                 // invoco a un metodo que me calcula el valor de la casilla
+//                 calcularCasilla(i, j, tablero);
+//             }
+//         }
+//     }
+// }
 
 // calcula el valor de una casilla dada
 function calcularCasilla(fila, columna) {
@@ -98,16 +98,17 @@ function validarCasilla(fila, columna) {
 }
 
 function revelarCasilla(fila, columna) {
-    if (!validarCasilla(fila, columna)) {
+    if (!validarCasilla(fila, columna) || tablero[fila][columna].revelada) {
         return;
     }
 
     tablero[fila][columna].revelada = true;
-
+    
     if (tablero[fila][columna].esMina) {
         gameOver();
     } else if (tablero[fila][columna].contador === 0) {
-        calcularCasilla(fila, columna);
+        calcularCasilla(fila,columna);
+        revelarCasilla(fila, columna);
     }
 }
 

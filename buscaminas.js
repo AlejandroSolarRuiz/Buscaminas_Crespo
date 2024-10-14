@@ -12,7 +12,7 @@ let tablero = [];
 // esta funcion se encarga de realizar el pedido al usuario de un unico dato
 // "mensaje" indica el texto con el que se pide al usuario informacion
 // "maximo" representa el valor máximo que el usuario puede indicar para el dato pedido
-function solicitarNumero(mensaje, maximo) {
+function solicitarNumero(mensaje, minimo, maximo) {
     // mientras el dato introducido sea erroneo
     while (true) {
         // pido al usuario el mensaje
@@ -25,11 +25,11 @@ function solicitarNumero(mensaje, maximo) {
             return null;
         }
         const numero = parseInt(input);
-        if (!isNaN(numero) && numero > 0 && numero <= maximo) {
+        if (!isNaN(numero) && numero >= minimo && numero <= maximo) {
             return numero;
         }
         alert(
-            `El valor introducido es incorrecto, debe estar entre 1 y ${maximo}, Intentelo de nuevo`
+            `El valor introducido es incorrecto, debe estar entre ${minimo} y ${maximo}, Intentelo de nuevo`
         );
     }
 }
@@ -37,24 +37,56 @@ function solicitarNumero(mensaje, maximo) {
 // Función que solicita los datos necesarios para configurar el juego
 function solicitarDatos() {
     // Solicitar filas y columnas
-    filas = solicitarNumero("Introduce el número de filas (mínimo 1 y máximo 9):", 9);
+    filas = solicitarNumero(
+        "Introduce el número de filas (mínimo 1 y máximo 9):",
+        1,
+        9
+    );
     // Si el usuario canceló, salimos de la función
     if (filas === null) return;
 
-    columnas = solicitarNumero("Introduce el número de columnas (mínimo 1 y máximo 9):", 9);
+
+    // Solicita el numero de columnas de manera que sean minimo 3 casillas
+    switch (filas) {
+        case 1:
+            columnas = solicitarNumero(
+                "Introduce el número de columnas (mínimo 3 y máximo 9)",
+                3,
+                9
+            );
+            break;
+        case 2:
+            columnas = solicitarNumero(
+                "Introduce el número de columnas (mínimo 2 y máximo 9)",
+                2,
+                9
+            );
+        default:
+            columnas = solicitarNumero(
+                "Introduce el número de columnas (mínimo 1 y máximo 9)",
+                1,
+                9
+            );
+            break;
+    }
     // Si el usuario canceló, salimos de la función
     if (columnas === null) return;
 
     // Calcular el número máximo de minas permitido
     let maxMinas = Math.floor((filas * columnas) / 2.5);
-
+    console.log(maxMinas);
+    
     // Solicitar el número de minas, asegurando que sea al menos 1
-    minas = solicitarNumero(`Introduce el número de minas (mínimo 1 y máximo ${Math.min(maxMinas, 12)}):`, Math.min(maxMinas, 12));
+    minas = solicitarNumero(
+        `Introduce el número de minas (mínimo 1 y máximo ${Math.min(
+            maxMinas,
+            12
+        )}):`,1,
+        Math.min(maxMinas, 12)
+    );
     // Si el usuario canceló, salimos de la función
     if (minas === null) return;
-
 }
-
 
 // funcion encargada de resolver el tablero, colocando en
 // cada casilla el valor correspondiente a la cantidad de minas
@@ -135,8 +167,8 @@ function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
         let filaMina = Math.floor(Math.random() * filas);
         let columnasMina = Math.floor(Math.random() * columnas);
-        console.log(filaMina,columnasMina);
-        
+        console.log(filaMina, columnasMina);
+
         if (tablero[filaMina][columnasMina] === -1) {
             continue;
         } else {
@@ -146,29 +178,28 @@ function crearMinas(tablero, minas) {
     }
 }
 
-// esta funcion se encarga de mostrar en una tabla los elementos del 
-// tablero y comprobar si son -1 (bomba) o el valor en ese momento, ademas de 
+// esta funcion se encarga de mostrar en una tabla los elementos del
+// tablero y comprobar si son -1 (bomba) o el valor en ese momento, ademas de
 // poder asignar un color posteriormente a los números
 function mostrarTablero(tablero, titulo) {
-    const container = document.getElementById('tablero-container');
-    const heading = document.createElement('h2');
+    const container = document.getElementById("tablero-container");
+    const heading = document.createElement("h2");
     heading.textContent = titulo;
 
-    const tabla = document.createElement('table');
+    const tabla = document.createElement("table");
 
     for (let i = 0; i < tablero.length; i++) {
-        const fila = document.createElement('tr');
+        const fila = document.createElement("tr");
         for (let j = 0; j < tablero[i].length; j++) {
-            const celda = document.createElement('td');
+            const celda = document.createElement("td");
             const valor = tablero[i][j];
-            
+
             // Mostrar solo minas o números
             if (valor === -1) {
-                celda.textContent = '💣'; 
+                celda.textContent = "💣";
             } else {
-                celda.textContent = valor; 
+                celda.textContent = valor;
 
-                
                 if (valor >= 0 && valor <= 8) {
                     celda.classList.add(`num-${valor}`);
                 }
@@ -181,8 +212,6 @@ function mostrarTablero(tablero, titulo) {
     container.appendChild(heading);
     container.appendChild(tabla);
 }
-
-
 
 // Después de definir tu tablero:
 solicitarDatos();
@@ -197,6 +226,3 @@ resolverTablero(tablero);
 
 // Mostrar el tablero resuelto con minas y números
 mostrarTablero(tablero, "Tablero resuelto: minas y números");
-
-
-
