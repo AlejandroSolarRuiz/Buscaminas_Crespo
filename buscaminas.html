@@ -22,7 +22,8 @@
         h2 {
             margin-bottom: 5px;
         }
-        .num-0{
+
+        .num-0 {
             color: transparent;
         }
 
@@ -45,23 +46,57 @@
             color: darkblue;
             /* Cambia el color para el 4 */
         }
+
         .num-5 {
             color: brown;
+            /* Cambia el color para el 5 */
         }
+
         .num-6 {
             color: rgb(0, 121, 129);
+            /* Cambia el color para el 6 */
         }
+
         .num-7 {
             color: purple;
+            /* Cambia el color para el 7 */
         }
+
         .num-8 {
             color: rgb(125, 122, 124);
+            /* Cambia el color para el 8 */
+        }
+
+        #start-button {
+            background: linear-gradient(135deg, #42a5f5, #478ed1);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #start-button:hover {
+            background: linear-gradient(135deg, #478ed1, #42a5f5);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        #start-button:active {
+            background: linear-gradient(135deg, #42a5f5, #478ed1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(1px);
         }
     </style>
 </head>
 
-<body>
+<body id="body">
     <div id="tablero-container"></div>
+    <button id="start-button">Iniciar Buscaminas</button>
 </body>
 <script type="text/javascript" src="buscaminas.js"></script>
 

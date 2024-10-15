@@ -213,6 +213,11 @@ function mostrarTablero(tablero, titulo) {
     container.appendChild(tabla);
 }
 
+const audio = new Audio("MusicaEpica.mp3"); 
+document.getElementById("start-button").addEventListener("click", function () {
+  
+
+document.getElementById("tablero-container").innerHTML = '';
 // Después de definir tu tablero:
 solicitarDatos();
 crearTablero(filas, columnas);
@@ -226,3 +231,8 @@ resolverTablero(tablero);
 
 // Mostrar el tablero resuelto con minas y números
 mostrarTablero(tablero, "Tablero resuelto: minas y números");
+
+audio.currentTime = 0;
+audio.play();
+
+});
