@@ -5,96 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscaminas (AlejandroSolar y DavidKovacs)</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        td {
-            background-color: rgb(135, 133, 133);
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            border: 1px solid black;
-        }
-
-        h2 {
-            margin-bottom: 5px;
-        }
-
-        .num-0 {
-            color: transparent;
-        }
-
-        .num-1 {
-            color: blue;
-            /* Cambia el color para el 1 */
-        }
-
-        .num-2 {
-            color: green;
-            /* Cambia el color para el 2 */
-        }
-
-        .num-3 {
-            color: rgb(249, 43, 21);
-            /* Cambia el color para el 3 */
-        }
-
-        .num-4 {
-            color: darkblue;
-            /* Cambia el color para el 4 */
-        }
-
-        .num-5 {
-            color: brown;
-            /* Cambia el color para el 5 */
-        }
-
-        .num-6 {
-            color: rgb(0, 121, 129);
-            /* Cambia el color para el 6 */
-        }
-
-        .num-7 {
-            color: purple;
-            /* Cambia el color para el 7 */
-        }
-
-        .num-8 {
-            color: rgb(125, 122, 124);
-            /* Cambia el color para el 8 */
-        }
-
-        #start-button {
-            background: linear-gradient(135deg, #42a5f5, #478ed1);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        #start-button:hover {
-            background: linear-gradient(135deg, #478ed1, #42a5f5);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transform: translateY(-3px);
-        }
-
-        #start-button:active {
-            background: linear-gradient(135deg, #42a5f5, #478ed1);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transform: translateY(1px);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="body">
+<body>
     <div id="tablero-container"></div>
     <button id="start-button">Iniciar Buscaminas</button>
 </body>

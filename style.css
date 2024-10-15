@@ -1,0 +1,124 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    /* Fuente más moderna */
+}
+
+#start-button {
+    background: linear-gradient(135deg, #42a5f5, #478ed1);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 20px 0;
+    /* Margen para separarlo un poco de los bordes */
+    position: absolute;
+    top: 20px;
+    /* Para colocar el botón en la parte superior */
+}
+
+table {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* Sombra para toda la tabla */
+    border-spacing: 0;
+    /* Para que las sombras no se vean separadas */
+}
+
+td {
+    background-color: #e3f2fd;
+    /* Suave tono azul para las celdas */
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #90a4ae;
+    /* Borde gris suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para cada celda */
+}
+
+h2 {
+    color: #37474f;
+    /* Color gris oscuro para el texto */
+    margin-top: 80px;
+    background-color: #b3e5fc;
+    /* Azul claro para el fondo del título */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Sombra para el h2 */
+}
+
+.num-0 {
+    color: transparent;
+    background-color: lightblue;
+}
+
+.num-1 {
+    color: blue;
+}
+
+.num-2 {
+    color: green;
+}
+
+.num-3 {
+    color: rgb(249, 43, 21);
+}
+
+.num-4 {
+    color: darkblue;
+}
+
+.num-5 {
+    color: brown;
+}
+
+.num-6 {
+    color: rgb(0, 121, 129);
+}
+
+.num-7 {
+    color: purple;
+}
+
+.num-8 {
+    color: rgb(125, 122, 124);
+}
+
+#start-button:hover {
+    background: linear-gradient(135deg, #478ed1, #42a5f5);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+#start-button:active {
+    background: linear-gradient(135deg, #42a5f5, #478ed1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
+
+#tablero-container {
+    display: flex;
+    flex-direction: column;
+    /* Alinea los elementos uno encima del otro */
+    align-items: center;
+    /* Centra los elementos horizontalmente */
+    gap: 10px;
+    /* Añade espacio entre los elementos */
+    margin-top: 20px;
+    /* Separa el contenedor del contenido superior */
+}
+
+.bomba {
+    background-color: rgb(224, 27, 27);
+}
