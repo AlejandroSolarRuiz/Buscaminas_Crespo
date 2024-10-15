@@ -36,13 +36,13 @@ function crearTablero(filas, columnas, minas) {
         }
         tablero.push(fila);
     }
-    crearMinas(tablero, minas);
+    colocarMinas(tablero, minas);
     resolverTablero();
 }
 
 // funcion que crea la posicion de las minas
 // se comprueba si en la casilla existe una mina y si no se escribe -1 respresentando a la mina
-function crearMinas(tablero, minas) {
+function colocarMinas(tablero, minas) {
     let minasColocadas = 0;
     while (minasColocadas < minas) {
         let filaMina = Math.floor(Math.random() * numFilas);
@@ -159,10 +159,10 @@ function actualizarTablero(titulo) {
                     event.preventDefault();
                     if (!tablero[i][j].revelada && banderas > 0) {
                         celda.textContent = "🚩";
-                        
+
                         banderas--;
                     }
-                })
+                });
             }
             fila.appendChild(celda);
         }
@@ -173,6 +173,7 @@ function actualizarTablero(titulo) {
 }
 function gameOver() {
     alert("GAME OVER!");
+    mostrarMinas();
     juegoTerminado = true;
     tableroJuego.innerHTML = "";
 }
@@ -182,6 +183,18 @@ function comprobarVictoria() {
     if (celdasSinMinas === celdasReveladas) {
         alert("Felicidades!, has ganado");
         tableroJuego.innerHTML = "";
+    }
+}
+
+function mostrarMinas() {
+    for (let i = 0; i < numFilas; i++) {
+        for (let j = 0; j < numColumnas; j++) {
+            if (tablero[i][j].esMina) {
+                tablero[i][j].revelada = true;
+            }
+            
+        }
+        
     }
 }
 
