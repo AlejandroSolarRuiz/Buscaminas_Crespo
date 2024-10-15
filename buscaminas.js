@@ -1,3 +1,5 @@
+// @David Kovacs y @Alejandro Solar
+
 // numero de filas
 let filas;
 // numero de columnas
