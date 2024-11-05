@@ -1,6 +1,6 @@
-const numFilas = 8;
-const numColumnas = 8;
-const numMinas = 10;
+const numFilas = 16;
+const numColumnas = 16;
+const numMinas = 40;
 let juegoTerminado = false;
 let celdasReveladas = 0;
 let banderas = 10;
@@ -157,10 +157,16 @@ function actualizarTablero(titulo) {
                 celda.addEventListener("click", () => revelarCasilla(i, j));
                 celda.addEventListener("contextmenu", (event) => {
                     event.preventDefault();
-                    if (!tablero[i][j].revelada && banderas > 0) {
-                        celda.textContent = "🚩";
-
-                        banderas--;
+                    if (!tablero[i][j].revelada) {
+                        if (celda.textContent !== "🚩") {
+                            if (banderas > 0) {
+                                celda.textContent = "🚩";
+                                banderas--;
+                            }
+                        } else {
+                            celda.textContent = "";
+                            banderas++;
+                        }
                     }
                 });
             }
@@ -170,6 +176,9 @@ function actualizarTablero(titulo) {
     }
     tableroJuego.appendChild(heading);
     tableroJuego.appendChild(tabla);
+    tableroJuego.appendChild(
+        (document.createElement("h2").textContent = banderas)
+    );
 }
 function gameOver() {
     alert("GAME OVER!");
@@ -192,9 +201,7 @@ function mostrarMinas() {
             if (tablero[i][j].esMina) {
                 tablero[i][j].revelada = true;
             }
-            
         }
-        
     }
 }
 
