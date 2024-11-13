@@ -8,12 +8,11 @@ let columnas;
 let minas;
 // tablero de juego
 let tablero = [];
-//minas colocadas
-let minasColocadas = 0;
+
 //se recibe en container el div tablero-container
 const container = document.getElementById("tablero-container");
 //se crea un nuevo audio
-const audio = new Audio("MusicaEpica.mp3"); 
+const audio = new Audio("MusicaEpica.mp3");
 
 // esta funcion se encarga de realizar el pedido al usuario de un unico dato
 function solicitarNumero(mensaje, minimo, maximo) {
@@ -56,7 +55,7 @@ function solicitarDatos() {
                 2,
                 9
             );
-            break;  // Añadido el break que faltaba
+            break; // Añadido el break que faltaba
         default:
             columnas = solicitarNumero(
                 "Introduce el número de columnas (mínimo 1 y máximo 9):",
@@ -72,7 +71,8 @@ function solicitarDatos() {
         `Introduce el número de minas (mínimo 1 y máximo ${Math.min(
             maxMinas,
             12
-        )}):`, 1,
+        )}):`,
+        1,
         Math.min(maxMinas, 12)
     );
     if (minas === null) return;
@@ -95,7 +95,7 @@ function crearMinas(tablero, minas) {
     while (minasColocadas < minas) {
         let filaMina = Math.floor(Math.random() * filas);
         let columnaMina = Math.floor(Math.random() * columnas);
-        console.log(filaMina, columnaMina);
+        //console.log(filaMina, columnaMina);
 
         // Simplificación: solo actúa si la casilla no tiene mina
         if (tablero[filaMina][columnaMina] !== -1) {
@@ -108,9 +108,14 @@ function crearMinas(tablero, minas) {
 // calcula el valor de una casilla dada
 function calcularCasilla(fila, columna, tablero) {
     let direcciones = [
-        [-1, -1], [-1, 0], [-1, 1],
-        [0, -1],          [0, 1],
-        [1, -1], [1, 0], [1, 1],
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, -1],
+        [0, 1],
+        [1, -1],
+        [1, 0],
+        [1, 1],
     ];
 
     for (let i = 0; i < direcciones.length; i++) {
@@ -149,7 +154,6 @@ function resolverTablero(tablero) {
 
 // esta funcion se encarga de mostrar el tablero
 function mostrarTablero(tablero, titulo) {
-
     const heading = document.createElement("h2");
     heading.textContent = titulo;
 
@@ -164,8 +168,7 @@ function mostrarTablero(tablero, titulo) {
             // Mostrar solo minas o números
             if (valor === -1) {
                 celda.textContent = "💣";
-                celda.classList.add("bomba")
-
+                celda.classList.add("bomba");
             } else {
                 celda.textContent = valor;
                 celda.classList.add(`num-${valor}`);
@@ -179,11 +182,10 @@ function mostrarTablero(tablero, titulo) {
     container.appendChild(tabla);
 }
 
-
 //funcion que a la hora de pulsar el boton se realiza las funciones contenidas en el
 document.getElementById("start-button").addEventListener("click", function () {
     //limpia el contenedor
-    container.innerHTML='';
+    container.innerHTML = "";
     //solicita los datos
     solicitarDatos();
     //crea el tablero
